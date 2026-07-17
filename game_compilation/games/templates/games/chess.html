@@ -1,0 +1,19 @@
+{% extends 'games/base.html' %}
+{% load static %}
+
+{% block title %}Chess - Game Compilation{% endblock %}
+
+{% block content %}
+    <a href="{% url 'games:home' %}" class="back-link">&larr; Back to all games</a>
+    <section class="game-detail">
+        <h2>Chess</h2>
+        <div id="chess-root"></div>
+    </section>
+
+    <script src="{% static 'games/js/chess.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new ChessGame(document.getElementById('chess-root'));
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'games/base.html' %}
+
+{% block title %}Welcome - Game Compilation{% endblock %}
+
+{% block content %}
+    <section class="welcome">
+        <h2>Welcome!</h2>
+        <p>Pick a game below and start playing.</p>
+    </section>
+
+    <section class="game-list">
+        {% if games %}
+            <div class="game-grid">
+                {% for game in games %}
+                    <div class="game-card">
+                        {% if game.thumbnail %}
+                            <img src="{{ game.thumbnail.url }}" alt="{{ game.title }}" class="game-thumbnail">
+                        {% else %}
+                            <div class="game-thumbnail placeholder">No Image</div>
+                        {% endif %}
+                        <h3 class="game-title">{{ game.title }}</h3>
+                        {% if game.description %}
+                            <p class="game-description">{{ game.description|truncatewords:20 }}</p>
+                        {% endif %}
+                        <a class="play-button"
+                           href="{% if game.play_url %}{{ game.play_url }}{% else %}{% url 'games:game_detail' game.slug %}{% endif %}">
+                            Play
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No games have been added yet. Check back soon!</p>
+        {% endif %}
+    </section>
+{% endblock %}
